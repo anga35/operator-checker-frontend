@@ -56,16 +56,20 @@
 
 <h3 id="answer" style="text-align: center;"></h3>
 
+<h3 id="vol_len" style="text-align: center;"></h3>
+
 <script>
 const xhttp= new XMLHttpRequest();
 xhttp.open('POST','https://ayodele-david-operator-check.herokuapp.com/evaluate/')
 xhttp.setRequestHeader("Content-type", "application/json")
 
 let answer_et=document.getElementById('main-input')
+
 answer_et.focus()
 
 var evaluate_btn=document.getElementById('evaluate_btn')
 let answer_label=document.getElementById('answer')
+let vol_len_label=document.getElementById('vol_len')
 
 evaluate_btn.onclick=function(){
     xhttp.open('POST','https://ayodele-david-operator-check.herokuapp.com/evaluate/')
@@ -78,6 +82,7 @@ xhttp.onreadystatechange=function(){
     if(this.readyState==4 && this.status !=200){
 
         answer_label.innerText="Something went wrong,please try again"
+        vol_len_label.innerText=""
 
     }
 
@@ -88,6 +93,8 @@ console.log(xhttp.responseText)
 let data=JSON.parse(xhttp.responseText)
 
 answer_label.innerText=`The text input has ${data.operator_count} operators and ${data.operand_count} operands`
+vol_len_label.innerText=`The volume of the input is ${data.volume} and the length of the input is ${data.length}`
+
 
 
 
